@@ -1,0 +1,47 @@
+{% extends "biblioteca/base.html" %}
+
+{% block title %}{{ titulo_pagina }} - Librería{% endblock %}
+
+{% block content %}
+<h2>{{ titulo_pagina }}</h2>
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %} <div class="mb-3">
+        <label for="{{ form.nombre_libro.id_for_label }}" class="form-label">{{ form.nombre_libro.label }}</label>
+        {{ form.nombre_libro }}
+        {% if form.nombre_libro.errors %}
+            <div class="invalid-feedback d-block">
+                {% for error in form.nombre_libro.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="{{ form.autor.id_for_label }}" class="form-label">{{ form.autor.label }}</label>
+        {{ form.autor }}
+        {% if form.autor.errors %}
+            <div class="invalid-feedback d-block">
+                {% for error in form.autor.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3 form-check">
+        {{ form.disponible }}
+        <label class="form-check-label" for="{{ form.disponible.id_for_label }}">{{ form.disponible.label }}</label>
+         {% if form.disponible.errors %}
+            <div class="invalid-feedback d-block">
+                {% for error in form.disponible.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <button type="submit" class="btn btn-primary">{{ nombre_boton }}</button>
+    <a href="{% url 'biblioteca:libro_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

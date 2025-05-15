@@ -1,0 +1,42 @@
+{% extends "biblioteca/base.html" %}
+
+{% block title %}Lista de Clientes - Librería{% endblock %}
+
+{% block content %}
+<h2>Lista de Clientes</h2>
+<a href="{% url 'biblioteca:cliente_create' %}" class="btn btn-primary mb-3">Agregar Nuevo Cliente</a>
+
+{% if clientes %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID Socio</th>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.dni }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>
+                        <a href="{% url 'biblioteca:cliente_update' cliente.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                        <a href="{% url 'biblioteca:cliente_delete' cliente.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info" role="alert">
+        No hay clientes registrados. <a href="{% url 'biblioteca:cliente_create' %}" class="alert-link">¡Agrega el primero!</a>
+    </div>
+{% endif %}
+{% endblock %}
