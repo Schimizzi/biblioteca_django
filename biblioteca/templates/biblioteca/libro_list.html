@@ -1,10 +1,20 @@
 {% extends "biblioteca/base.html" %}
 
-{% block title %}Lista de Libros - Librería{% endblock %}
+{% block title %}{{ titulo_pagina }} - Librería{% endblock %}
 
 {% block content %}
-<h2>Lista de Libros</h2>
-<a href="{% url 'biblioteca:libro_create' %}" class="btn btn-primary mb-3">Agregar Nuevo Libro</a>
+<h2>{{ titulo_pagina }}</h2>
+
+<form method="get" action="{% url 'biblioteca:libro_list' %}" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Buscar libros por título o autor..." value="{{ search_query }}">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        {% if search_query %}
+        <a href="{% url 'biblioteca:libro_list' %}" class="btn btn-outline-secondary">Limpiar</a>
+        {% endif %}
+    </div>
+</form>
+<a href="{% url 'biblioteca:libro_create' %}" class="btn btn-success mb-3">Agregar Nuevo Libro</a>
 
 {% if libros %}
     <div class="table-responsive">
@@ -34,9 +44,44 @@
             </tbody>
         </table>
     </div>
+
+    {% comment %} {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">Anterior</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                {% endif %}
+
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">Siguiente</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+    {% endcomment %}
+
 {% else %}
-    <div class="alert alert-info" role="alert">
-        No hay libros registrados en la librería. <a href="{% url 'biblioteca:libro_create' %}" class="alert-link">¡Agrega el primero!</a>
-    </div>
+    {% if search_query %}
+        <div class="alert alert-warning" role="alert">
+            No se encontraron libros que coincidan con "<strong>{{ search_query }}</strong>".
+            Intenta con otro término o <a href="{% url 'biblioteca:libro_list' %}" class="alert-link">muestra todos los libros</a>.
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No hay libros registrados en la librería. <a href="{% url 'biblioteca:libro_create' %}" class="alert-link">¡Agrega el primero!</a>
+        </div>
+    {% endif %}
 {% endif %}
 {% endblock %}
