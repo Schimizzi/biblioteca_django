@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'biblioteca' 
 
+
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
 
