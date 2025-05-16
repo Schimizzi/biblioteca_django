@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Librería{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">    <style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif; /* Asegúrate de que esta fuente esté disponible o elige otra */
             background-color: #f8f9fa;
-            padding-top: 70px; /
+            padding-top: 70px; /* Ajuste para la barra de navegación fija */
         }
         .navbar {
-            background-color: #343a40; 
+            background-color: #343a40;
         }
         .navbar-brand, .nav-link {
-            color: #ffffff !important; 
+            color: #ffffff !important;
         }
         .nav-link:hover {
             color: #cccccc !important;
@@ -46,12 +47,28 @@
         .form-label {
             font-weight: bold;
         }
+        /* Estilos para mensajes de error del formulario */
+        .form-errors {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+            border-radius: .25rem;
+        }
+        .form-errors ul {
+            margin-bottom: 0;
+            padding-left: 1.5rem;
+        }
+        .invalid-feedback.d-block { /* Asegura que los errores de campo sean visibles */
+            display: block !important;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'biblioteca:home' %}">Mi Librería</a>
+            <a class="navbar-brand" href="{% url 'biblioteca:home' %}">Librería "El Programador"</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,9 +105,9 @@
     </main>
 
     <footer class="text-center mt-5 mb-3">
-        <p>&copy; {% now "Y" %} Mi Librería App. Todos los derechos reservados.</p>
+        <p>&copy;ByGemini con la colaboración de Claudio Schimizzi.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
