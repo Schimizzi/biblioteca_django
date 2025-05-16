@@ -1,0 +1,42 @@
+{% extends "biblioteca/base.html" %}
+
+{% block title %}Lista de Libros - Librería{% endblock %}
+
+{% block content %}
+<h2>Lista de Libros</h2>
+<a href="{% url 'biblioteca:libro_create' %}" class="btn btn-primary mb-3">Agregar Nuevo Libro</a>
+
+{% if libros %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in libros %}
+                <tr>
+                    <td>{{ libro.id }}</td>
+                    <td>{{ libro.nombre_libro }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{% if libro.disponible %}Disponible{% else %}No Disponible/Vendido{% endif %}</td>
+                    <td>
+                        <a href="{% url 'biblioteca:libro_update' libro.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                        <a href="{% url 'biblioteca:libro_delete' libro.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info" role="alert">
+        No hay libros registrados en la librería. <a href="{% url 'biblioteca:libro_create' %}" class="alert-link">¡Agrega el primero!</a>
+    </div>
+{% endif %}
+{% endblock %}

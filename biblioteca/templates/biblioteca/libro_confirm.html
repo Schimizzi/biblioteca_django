@@ -1,0 +1,13 @@
+{% extends "biblioteca/base.html" %}
+
+{% block title %}Confirmar Eliminación de Libro - Librería{% endblock %}
+
+{% block content %}
+<h2>Confirmar Eliminación</h2>
+<p>¿Estás seguro de que deseas eliminar el libro "<strong>{{ libro.nombre_libro }}</strong>" (ID: {{ libro.id }})?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'biblioteca:libro_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
