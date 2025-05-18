@@ -1,5 +1,5 @@
-#from django.shortcuts import render, redirect, get_object_or_404
 
+#from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Libro, Cliente
@@ -16,20 +16,17 @@ class LibroListView(ListView):
     model = Libro
     template_name = 'biblioteca/libro_list.html'
     context_object_name = 'libros'
-    paginate_by = 10 # Optional: if you want pagination
 
     def get_queryset(self):
         """
         Override to filter books based on a search query.
         The search query is expected as a GET parameter named 'q'.
         """
-        queryset = super().get_queryset().order_by('nombre_libro') # Get the original queryset
-        query = self.request.GET.get('q') # Get the search query from GET parameters
+        queryset = super().get_queryset().order_by('nombre_libro') 
+        query = self.request.GET.get('q') 
 
         if query:
             logger.info(f"LibroListView: Buscando libros con el término: '{query}'")
-            # Filter by book name or author name containing the query (case-insensitive)
-            # Q objects are used for OR conditions
             queryset = queryset.filter(
                 Q(nombre_libro__icontains=query) | Q(autor__icontains=query)
             )
@@ -39,13 +36,9 @@ class LibroListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        """
-        Override to add the search query to the context, so it can be displayed in the template.
-        """
         context = super().get_context_data(**kwargs)
         logger.info("LibroListView: get_context_data ejecutado.")
-        # Add the current search query to the context
-        context['search_query'] = self.request.GET.get('q', '') # Pass the query back to the template
+        context['search_query'] = self.request.GET.get('q', '') 
         context['titulo_pagina'] = 'Lista de Libros'
         if context['search_query']:
              context['titulo_pagina'] += f" (Resultados para '{context['search_query']}')"
