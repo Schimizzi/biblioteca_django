@@ -18,10 +18,6 @@ class LibroListView(ListView):
     context_object_name = 'libros'
 
     def get_queryset(self):
-        """
-        Override to filter books based on a search query.
-        The search query is expected as a GET parameter named 'q'.
-        """
         queryset = super().get_queryset().order_by('nombre_libro') 
         query = self.request.GET.get('q') 
 
