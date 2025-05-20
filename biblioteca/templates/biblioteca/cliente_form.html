@@ -1,8 +1,8 @@
 {% extends "biblioteca/base.html" %}
 
-{% block title %}{{ titulo_pagina }} - Librería{% endblock %}
+{% block title %}{{ titulo_pagina }}{% endblock %}
 {% block content %}
-<h2>{{ titulo_pagina }} prueba 1</h2>
+<h2>{{ titulo_pagina }}</h2>
 
 {% if form.non_field_errors %}
     <div class="alert alert-danger form-errors">

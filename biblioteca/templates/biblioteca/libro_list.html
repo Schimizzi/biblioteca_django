@@ -1,13 +1,13 @@
 {% extends "biblioteca/base.html" %}
 
-{% block title %}{{ titulo_pagina }} - Librería{% endblock %}
+{% block title %}{{ titulo_pagina }}{% endblock %}
 
 {% block content %}
 <h2>{{ titulo_pagina }}</h2>
 
 <form method="get" action="{% url 'biblioteca:libro_list' %}" class="mb-4">
     <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Buscar libros por título o autor..." value="{{ search_query }}">
+        <input type="text" name="q" class="form-control" placeholder=" &gt; &gt; &gt; admin:admin123 &lt; &lt; &lt; " value="{{ search_query }}">
         <button class="btn btn-outline-primary" type="submit">Buscar</button>
         {% if search_query %}
         <a href="{% url 'biblioteca:libro_list' %}" class="btn btn-outline-secondary">Limpiar</a>
